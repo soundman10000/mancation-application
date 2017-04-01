@@ -1,39 +1,39 @@
 using System.Configuration;
+using Funq;
+using Host.App_Start;
 using Host.Request;
-using Presentation.Request;
 using ServiceStack;
 using ServiceStack.Auth;
 using ServiceStack.Configuration;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(Host.App_Start.AppHost), "Start")]
+[assembly: WebActivator.PreApplicationStartMethod(typeof(Host.AppHost), "Start")]
 
-namespace Host.App_Start
+namespace Host
 {
 	public class AppHost : AppHostBase
 	{		
 		public AppHost() //Tell ServiceStack the name and where to find your web services
 			: base("Mancation", typeof(UserRequest).Assembly) { }
 
-		public override void Configure(Funq.Container container)
+		public override void Configure(Container container)
 		{
 			//Set JSON web services to return idiomatic JSON camelCase properties
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 
-			//Uncomment to change the default ServiceStack configuration
+            //Uncomment to change the default ServiceStack configuration
             //SetConfig(new HostConfig {
             //});
 
-			//Enable Authentication
-			//ConfigureAuth(container);
+            //Enable Authentication
+            //ConfigureAuth(container);
 
-			//Register all your dependencies
-			//container.Register(new TodoRepository());			
-		}
+            container.Adapter = new UnityContainerAdapter(HostContainer.Create());
+        }
 
 		/* Example ServiceStack Authentication and CustomUserSession */
-		private void ConfigureAuth(Funq.Container container)
+		private void ConfigureAuth(Container container)
 		{
 			var appSettings = new AppSettings();
 
