@@ -15,19 +15,22 @@ namespace Domain
         public string MiddleName { get; }
         public DateTime Birthdate { get; }
         public Gender Gender { get; }
+        public Guid Address { get; }
 
         public Person(
             string firstName, 
             string lastName, 
             string middleName, 
             DateTime birthdate, 
-            Gender gender)
+            Gender gender, 
+            Guid address)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.MiddleName = middleName;
             this.Birthdate = birthdate;
             this.Gender = gender;
+            this.Address = address;
         }
 
         #region Equality
@@ -38,7 +41,8 @@ namespace Domain
                 string.Equals(LastName, other.LastName) && 
                 string.Equals(MiddleName, other.MiddleName) && 
                 this.Birthdate.Equals(other.Birthdate) && 
-                this.Gender == other.Gender;
+                this.Gender == other.Gender &&
+                string.Equals(Address, other.Address);
         }
 
         public override bool Equals(object obj)
@@ -55,6 +59,7 @@ namespace Domain
                 hashCode = (hashCode * 397) ^ (this.LastName?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (this.MiddleName?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ this.Birthdate.GetHashCode();
+                hashCode = (hashCode * 397) ^ this.Address.GetHashCode();
                 hashCode = (hashCode * 397) ^ (int)this.Gender;
                 return hashCode;
             }

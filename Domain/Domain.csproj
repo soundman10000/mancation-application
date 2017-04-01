@@ -47,10 +47,9 @@
     <Compile Include="Address\Address.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Person\Person.cs" />
+    <Compile Include="User\User.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="User\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

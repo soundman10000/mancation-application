@@ -21,7 +21,8 @@ namespace Tests.Person
                 RandomString(),
                 RandomString(),
                 DateTime.Today,
-                Gender.Male);
+                Gender.Male,
+                Guid.NewGuid());
 
             var person2 = person1;
 
