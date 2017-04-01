@@ -5,28 +5,14 @@
 
 using System;
 using NUnit.Framework;
-
+using Presentation.Request;
 using static Tests.Utilities.StringHelpers;
 
 namespace Tests.Address
 {
 
-    public class AddressTests
+    public class AddressTests : Test
     {
-        #region Boilerplate
-
-        [SetUp]
-        public void SetUp()
-        {
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-        }
-
-        #endregion Boilerplate
-
         [Test]
         public void AddressValueEquality()
         {
@@ -43,6 +29,13 @@ namespace Tests.Address
             var address2 = address1;
 
             Assert.IsTrue(address1 == address2);
+        }
+
+
+        [Test]
+        public void TestThing()
+        {
+            var thing = this.Client.Get(new GetAddress());
         }
     }
 }

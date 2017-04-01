@@ -6,26 +6,13 @@
 using System;
 using NUnit.Framework;
 using Presentation;
+using Presentation.Request;
 using static Tests.Utilities.StringHelpers;
 
 namespace Tests.Person
 {
-    public class PersonTests
+    public class PersonTests : Test
     {
-        #region Boilerplate
-
-        [SetUp]
-        public void SetUp()
-        {
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-        }
-
-        #endregion Boilerplate
-
         [Test]
         public void PersonValueEquality()
         {
