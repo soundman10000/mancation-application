@@ -4,6 +4,10 @@
 // file that was distributed with this source code.
 
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using NUnit.Framework;
 using Presentation.Request;
 using static Tests.Utilities.StringHelpers;
@@ -33,9 +37,10 @@ namespace Tests.Address
 
 
         [Test]
-        public void TestThing()
+        public async Task TestThing()
         {
-            var thing = this.Client.Get(new GetAddress());
+
+            var test = await this.Client.GetAsync(new GetAddress());
         }
     }
 }

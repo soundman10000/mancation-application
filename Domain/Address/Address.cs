@@ -4,12 +4,13 @@
 // file that was distributed with this source code.
 
 using System;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 
 namespace Domain
 {
     [Serializable]
-    public struct Address
+    public class Address : BsonValue
     {
         public string Address1 { get; }
         public string Address2 { get; }
@@ -55,6 +56,11 @@ namespace Domain
                    CountryId.Equals(other.CountryId);
         }
 
+        public override int CompareTo(BsonValue other)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -77,14 +83,16 @@ namespace Domain
             }
         }
 
+        public override BsonType BsonType { get; }
+
         public static bool operator !=(Address address1, Address address2)
         {
-            return !address1.Equals(address2);
+            return address1 != null && !address1.Equals(address2);
         }
 
         public static bool operator ==(Address address1, Address address2)
         {
-            return address1.Equals(address2);
+            return address1 != null && address1.Equals(address2);
         }
 
         #endregion

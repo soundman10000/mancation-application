@@ -6,7 +6,6 @@
 using System;
 using NUnit.Framework;
 using Presentation;
-using Presentation.Request;
 using static Tests.Utilities.StringHelpers;
 
 namespace Tests.Person

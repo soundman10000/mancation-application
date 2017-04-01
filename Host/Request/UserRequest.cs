@@ -6,11 +6,10 @@
 using System.Collections.Generic;
 using Presentation.DTO;
 using Presentation.Request;
-using ServiceStack;
 
 namespace Host.Request
 {
-    public class UserRequest : Service
+    public class UserRequest : ServiceRequestBase
     {
         public List<UserDto> Get(FindUsers request)
         {
