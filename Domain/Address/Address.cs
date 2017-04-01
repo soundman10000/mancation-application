@@ -5,6 +5,7 @@
 
 using System;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace Domain
@@ -12,14 +13,20 @@ namespace Domain
     [Serializable]
     public class Address : BsonValue
     {
+        [BsonElement("address1")]
         public string Address1 { get; }
+        [BsonElement("address2")]
         public string Address2 { get; }
+        [BsonElement("address3")]
         public string Address3 { get; }
+        [BsonElement("city")]
         public string City { get; }
+        [BsonElement("state")]
         public string State { get; }
+        [BsonElement("postalCode")]
         public string PostalCode { get; }
+        [BsonElement("county")]
         public string County { get; }
-        public Guid CountryId { get; }
 
         [JsonConstructor]
         public Address(
@@ -29,17 +36,15 @@ namespace Domain
             string city, 
             string state, 
             string postalCode, 
-            string county, 
-            Guid countryId)
+            string county)
         {
-            Address1 = address1;
-            Address2 = address2;
-            Address3 = address3;
-            City = city;
-            State = state;
-            PostalCode = postalCode;
-            County = county;
-            CountryId = countryId;
+            this.Address1 = address1;
+            this.Address2 = address2;
+            this.Address3 = address3;
+            this.City = city;
+            this.State = state;
+            this.PostalCode = postalCode;
+            this.County = county;
         }
 
         #region Equality
@@ -52,13 +57,14 @@ namespace Domain
                    string.Equals(City, other.City) &&
                    string.Equals(State, other.State) &&
                    string.Equals(PostalCode, other.PostalCode) &&
-                   string.Equals(County, other.County) &&
-                   CountryId.Equals(other.CountryId);
+                   string.Equals(County, other.County);
         }
 
         public override int CompareTo(BsonValue other)
         {
-            throw new NotImplementedException();
+            return this.GetHashCode() > other.GetHashCode()
+                ? 0
+                : 1;
         }
 
         public override bool Equals(object obj)
@@ -78,12 +84,11 @@ namespace Domain
                 hashCode = (hashCode * 397) ^ (State?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (PostalCode?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (County?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ CountryId.GetHashCode();
                 return hashCode;
             }
         }
 
-        public override BsonType BsonType { get; }
+        public override BsonType BsonType => BsonType.Int32;
 
         public static bool operator !=(Address address1, Address address2)
         {

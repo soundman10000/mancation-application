@@ -5,6 +5,7 @@
 
 
 using System;
+using MongoDB.Bson;
 using Presentation.DTO;
 using ServiceStack;
 
@@ -13,6 +14,12 @@ namespace Presentation.Request
     [Route("/address/{Id}")]
     public class GetAddress : IReturn<AddressDto>
     {
-        public Guid Id { get; set; }
+        public ObjectId Id { get; set; }
+    }
+
+    [Route("/address/", "POST")]
+    public class CreateAddress : IReturn<ObjectId>
+    {
+        public AddressDto AddressDto { get; set; }
     }
 }

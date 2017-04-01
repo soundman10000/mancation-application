@@ -15,15 +15,14 @@ namespace Host
         protected ServiceRequestBase()
         {
             this.Container = HostContainer.Create();
-
             var databaseClient = this.Container.Resolve<MongoClient>();
 
             //might want to move this to be injected.
-            var addressDatabaseName = ConfigurationManager.AppSettings["AddressDatabase"];
-            this.AddressDatabase = databaseClient.GetDatabase(addressDatabaseName);
+            var userDatabaseName = ConfigurationManager.AppSettings["UserDatabase"];
+            this.UserDatabase = databaseClient.GetDatabase(userDatabaseName);
         }
 
         protected IUnityContainer Container { get; set; }
-        protected IMongoDatabase AddressDatabase { get; set; }
+        protected IMongoDatabase UserDatabase { get; set; }
     }
 }
