@@ -4,45 +4,69 @@
 // file that was distributed with this source code.
 
 using System;
+using MongoDB.Bson;
 using Presentation;
+using MongoDB.Bson.Serialization.Attributes;
+using Presentation.DTO;
 
 namespace Domain
 {
-    public struct Person
+    [Serializable]
+    public class Person : BsonValue
     {
+        [BsonElement("firstName")]
         public string FirstName { get; }
+        [BsonElement("lastName")]
         public string LastName { get; }
+        [BsonElement("middelName")]
         public string MiddleName { get; }
+        [BsonElement("birthdate")]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Birthdate { get; }
+        [BsonElement("gender")]
         public Gender Gender { get; }
-        public Guid Address { get; }
 
+        [BsonConstructor]
         public Person(
             string firstName, 
             string lastName, 
             string middleName, 
             DateTime birthdate, 
-            Gender gender, 
-            Guid address)
+            Gender gender)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.MiddleName = middleName;
             this.Birthdate = birthdate;
             this.Gender = gender;
-            this.Address = address;
+        }
+
+        public Person(PersonDto dto)
+            : this(
+                dto.FirstName,
+                dto.LastName,
+                dto.MiddleName,
+                dto.Birthdate,
+                dto.Gender)
+        {
         }
 
         #region Equality
 
         public bool Equals(Person other)
         {
-            return string.Equals(FirstName, other.FirstName) && 
-                string.Equals(LastName, other.LastName) && 
-                string.Equals(MiddleName, other.MiddleName) && 
-                this.Birthdate.Equals(other.Birthdate) && 
-                this.Gender == other.Gender &&
-                string.Equals(Address, other.Address);
+            return string.Equals(FirstName, other.FirstName) &&
+                   string.Equals(LastName, other.LastName) &&
+                   string.Equals(MiddleName, other.MiddleName) &&
+                   this.Birthdate.Equals(other.Birthdate) &&
+                   this.Gender == other.Gender;
+        }
+
+        public override int CompareTo(BsonValue other)
+        {
+            return this.GetHashCode() > other.GetHashCode()
+                ? 0
+                : 1;
         }
 
         public override bool Equals(object obj)
@@ -59,20 +83,21 @@ namespace Domain
                 hashCode = (hashCode * 397) ^ (this.LastName?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (this.MiddleName?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ this.Birthdate.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.Address.GetHashCode();
                 hashCode = (hashCode * 397) ^ (int)this.Gender;
                 return hashCode;
             }
         }
 
+        public override BsonType BsonType => BsonType.Int32;
+
         public static bool operator !=(Person person1, Person person2)
         {
-            return !person1.Equals(person2);
+            return !Equals(person1, person2);
         }
 
         public static bool operator ==(Person person1, Person person2)
         {
-            return person1.Equals(person2);
+            return Equals(person1, person2);
         }
 
         #endregion

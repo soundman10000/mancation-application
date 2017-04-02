@@ -24,10 +24,12 @@ namespace Host
 
             container.RegisterInstance<ICacheClient>(new MemoryCacheClient(), new ContainerControlledLifetimeManager());
 
-            //TODO: check on what mongo actually keeps cached. Might want to make this a per thread manager.
             container.RegisterType<IMongoClient, MongoClient>(new ContainerControlledLifetimeManager(),
                 new InjectionConstructor(connectionManager.ConnectionString));
+
             container.RegisterType<IAddressDocumentStore, AddressDocumentStore>(new ContainerControlledLifetimeManager());
+
+            container.RegisterType<IPersonDocumentStore, PersonDocumentStore>(new ContainerControlledLifetimeManager());
 
             return container;
         }

@@ -10,24 +10,10 @@ namespace Presentation.DTO
     [Serializable]
     public class PersonDto
     {
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string MiddleName { get; }
-        public DateTime Birthdate { get; }
-        public Gender Gender { get; }
-
-        public PersonDto(
-            string firstName, 
-            string lastName, 
-            string middleName, 
-            DateTime birthdate, 
-            Gender gender)
-        {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.MiddleName = middleName;
-            this.Birthdate = birthdate;
-            this.Gender = gender;
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleName { get; set; }
+        public DateTime Birthdate { get; set; }
+        public Gender Gender { get; set; }
     }
 }

@@ -1,10 +1,11 @@
-﻿// Mancation fucker
+﻿// Mancation
 // (c) Smokey Inc.
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
 using System;
 using System.Threading.Tasks;
+using Domain;
 using Mancation.Domain;
 using Presentation.DTO;
 using Presentation.Request;
@@ -22,16 +23,26 @@ namespace Host.Request
 
         public async Task<AddressDto> Get(GetAddress request)
         {
-            return await this._store.Get(request.Id);
+            var entity = await this._store.Get(request.Id);
+            return new AddressDto
+            {
+                Address1 = entity.Address1,
+                Address2 = entity.Address2,
+                Address3 = entity.Address3,
+                City = entity.City,
+                State = entity.State,
+                County = entity.County,
+                PostalCode = entity.PostalCode
+            };
         }
 
         public async Task<string> Post(CreateAddress createAddress)
         {
-            var addressDto = createAddress.AddressDto;
+            var addressEntity = new Address(createAddress.AddressDto);
 
             try
             {
-                var id = await this._store.Post(addressDto);
+                var id = await this._store.Post(addressEntity);
                 return id.ToString();
             }
             catch (Exception e)

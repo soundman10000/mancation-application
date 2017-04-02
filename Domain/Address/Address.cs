@@ -6,7 +6,6 @@
 using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Newtonsoft.Json;
 using Presentation.DTO;
 
 namespace Domain
@@ -29,7 +28,7 @@ namespace Domain
         [BsonElement("county")]
         public string County { get; }
 
-        [JsonConstructor]
+        [BsonConstructor]
         public Address(
             string address1, 
             string address2, 

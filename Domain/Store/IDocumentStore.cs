@@ -8,10 +8,10 @@ using MongoDB.Bson;
 
 namespace Mancation.Domain
 {
-    public interface IUserDocumentStorageProvider<T, TValue>
+    public interface IDocumentStore<T>
     {
         string CollectionName { get; }
-        Task<TValue> Get(ObjectId id);
-        Task<ObjectId> Post(TValue value);
+        Task<T> Get(ObjectId id);
+        Task<ObjectId> Post(T value);
     }
 }
