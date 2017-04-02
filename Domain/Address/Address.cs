@@ -1,11 +1,10 @@
-﻿// Mancation fucker
+﻿// Mancation 
 // (c) Smokey Inc.
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
 using System;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace Domain
@@ -13,19 +12,12 @@ namespace Domain
     [Serializable]
     public class Address : BsonValue
     {
-        [BsonElement("address1")]
         public string Address1 { get; }
-        [BsonElement("address2")]
         public string Address2 { get; }
-        [BsonElement("address3")]
         public string Address3 { get; }
-        [BsonElement("city")]
         public string City { get; }
-        [BsonElement("state")]
         public string State { get; }
-        [BsonElement("postalCode")]
         public string PostalCode { get; }
-        [BsonElement("county")]
         public string County { get; }
 
         [JsonConstructor]

@@ -1,4 +1,4 @@
-﻿// Mancation fucker
+﻿// Mancation 
 // (c) Smokey Inc.
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
@@ -26,9 +26,7 @@ namespace Host.Request
             var doc = await addressValueCollection.Find(filter).FirstOrDefaultAsync();
             var address = doc["address"];
 
-            var addressJson = address.ToJson();
-
-            return JsonConvert.DeserializeObject<AddressDto>(addressJson);
+            return JsonConvert.DeserializeObject<AddressDto>(address.ToJson());
         }
 
         public async Task<string> Post(CreateAddress createAddress)

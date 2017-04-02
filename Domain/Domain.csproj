@@ -51,6 +51,7 @@
     <Compile Include="Address\Address.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Person\Person.cs" />
+    <Compile Include="Store\DocumentStorageProvider.cs" />
     <Compile Include="User\User.cs" />
   </ItemGroup>
   <ItemGroup />
