@@ -17,23 +17,5 @@ namespace Presentation.DTO
         public string State { get; set; }
         public string PostalCode { get; set; }
         public string County { get; set; }
-
-        public AddressDto(
-            string address1, 
-            string address2, 
-            string address3, 
-            string city, 
-            string state, 
-            string postalCode, 
-            string county)
-        {
-            this.Address1 = address1;
-            this.Address2 = address2;
-            this.Address3 = address3;
-            this.City = city;
-            this.State = state;
-            this.PostalCode = postalCode;
-            this.County = county;
-        }
     }
 }

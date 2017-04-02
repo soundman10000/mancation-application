@@ -3,11 +3,8 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using MongoDB.Bson;
-using MongoDB.Driver;
+using FluentAssertions;
 using NUnit.Framework;
 using Presentation.DTO;
 using Presentation.Request;
@@ -38,14 +35,17 @@ namespace Tests.Address
         [Test]
         public async Task TestCreateAndGetSucceed()
         {
-            var address1 = new AddressDto(
-                RandomString(),
-                RandomString(),
-                RandomString(),
-                RandomString(),
-                RandomString(),
-                RandomString(),
-                RandomString());
+            var address1 = new AddressDto
+            {
+                Address1 = RandomString(),
+                Address2 = RandomString(),
+                Address3 = RandomString(),
+                City = RandomString(),
+                State = RandomString(),
+                PostalCode = RandomString(),
+                County = RandomString()
+            };
+                
 
             var request = new CreateAddress
             {
@@ -61,13 +61,7 @@ namespace Tests.Address
 
             var address = await this.Client.GetAsync(getRequest);
 
-            Assert.IsTrue(address1.Address1 == address.Address1);
-            Assert.IsTrue(address1.Address2 == address.Address2);
-            Assert.IsTrue(address1.Address3 == address.Address3);
-            Assert.IsTrue(address1.City == address.City);
-            Assert.IsTrue(address1.County == address.County);
-            Assert.IsTrue(address1.State == address.State);
-            Assert.IsTrue(address1.PostalCode == address.PostalCode);
+            address.ShouldBeEquivalentTo(address1);
         }
     }
 }
