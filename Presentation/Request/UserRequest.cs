@@ -13,10 +13,9 @@ using ServiceStack;
 namespace Presentation.Request
 {
     [Route("/users")]
-    [Route("/users/{Ids}")]
-    public class FindUsers : IReturn<List<UserDto>>
+    public class FindUsers : IReturn<List<ObjectId>>
     {
-        public Guid[] Ids { get; set; }
+        public BsonDocument Filter { get; set; }
     }
 
     [Route("/users/{Id}")]

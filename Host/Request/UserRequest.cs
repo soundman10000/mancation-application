@@ -4,6 +4,8 @@
 // file that was distributed with this source code.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Mancation.Domain;
@@ -39,6 +41,12 @@ namespace Host.Request
                 AddressId = entity.AddressId,
                 PersonId = entity.PersonId
             };
+        }
+
+        public async Task<List<ObjectId>> Get(FindUsers request)
+        {
+            var items = await this._userStore.Find(request.Filter);
+            return items.ToList();
         }
 
         public async Task<ObjectId> Post(CreateUser request)

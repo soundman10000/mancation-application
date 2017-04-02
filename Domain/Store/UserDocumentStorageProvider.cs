@@ -3,6 +3,9 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.Mancation.Domain
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -38,6 +41,13 @@ namespace Mancation.Domain
             return BsonSerializer.Deserialize<T>(document[this.CollectionName].AsBsonDocument);
         }
 
+        public async Task<IEnumerable<ObjectId>> Find(BsonDocument filter)
+        {
+            var typeDocuments = await DocumentCollection.Find(filter).ToListAsync();
+
+            return typeDocuments.ToObjectIds();
+        }
+
         public async Task<ObjectId> Post(T entity)
         {
             var document = entity.ToBson(this);
@@ -53,6 +63,23 @@ namespace Mancation.Domain
             where T : BsonValue
         {
             return new BsonDocument {new BsonElement(input.CollectionName, value)};
+        }
+
+        public static ObjectId ToObjectId(this BsonDocument input)
+        {
+            try
+            {
+                return new ObjectId(input["_id"].ToString());
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No _id on object.", e);
+            }
+        }
+
+        public static IEnumerable<ObjectId> ToObjectIds(this IEnumerable<BsonDocument> input)
+        {
+            return input.Select(ToObjectId);
         }
     }
 }
