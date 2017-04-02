@@ -10,7 +10,7 @@ using MongoDB.Driver;
 
 namespace Mancation.Domain
 {
-    public abstract class UserDocumentStorageProvider<T> : IDocumentStore<T>
+    public abstract class UserDocumentStorageProvider<T>
         where T : BsonValue
     {
         private const string UserDatabase = "users";

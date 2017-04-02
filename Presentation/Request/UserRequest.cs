@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
 using Presentation.DTO;
 using ServiceStack;
 
@@ -16,5 +17,20 @@ namespace Presentation.Request
     public class FindUsers : IReturn<List<UserDto>>
     {
         public Guid[] Ids { get; set; }
+    }
+
+    [Route("/users/{Id}")]
+    public class GetUser : IReturn<UserDto>
+    {
+        public ObjectId Id { get; set; }
+    }
+
+    [Route("/users", "POST")]
+    public class CreateUser : IReturn<ObjectId>
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public PersonDto Person { get; set; }
+        public AddressDto Address { get; set; }
     }
 }

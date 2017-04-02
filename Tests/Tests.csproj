@@ -106,6 +106,7 @@
     <Compile Include="Test.cs" />
     <Compile Include="TestAppHost.cs" />
     <Compile Include="TestFixture.cs" />
+    <Compile Include="User\UserTests.cs" />
     <Compile Include="Utilities\StringHelpers.cs" />
   </ItemGroup>
   <ItemGroup>

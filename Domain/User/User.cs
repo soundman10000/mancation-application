@@ -8,7 +8,7 @@ using Domain;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Mancation.Domain.User
+namespace Mancation.Domain
 {
     [Serializable]
     public class User : BsonValue
@@ -26,9 +26,13 @@ namespace Mancation.Domain.User
             this.AddressId = addressId;
         }
 
+        [BsonElement("userName")]
         public string UserName { get; }
+        [BsonElement("userPassword")]
         public string UserPassword { get; }
+        [BsonElement("personId")]
         public ObjectId PersonId { get; }
+        [BsonElement("addressId")]
         public ObjectId AddressId { get; }
 
         #region Equality

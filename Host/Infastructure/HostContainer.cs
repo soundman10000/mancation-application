@@ -3,7 +3,6 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-using System;
 using Host.Infastructure;
 using Mancation.Domain;
 using Microsoft.Practices.Unity;
@@ -28,8 +27,8 @@ namespace Host
                 new InjectionConstructor(connectionManager.ConnectionString));
 
             container.RegisterType<IAddressDocumentStore, AddressDocumentStore>(new ContainerControlledLifetimeManager());
-
             container.RegisterType<IPersonDocumentStore, PersonDocumentStore>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IUserDocumentStore, UserDocumentStore>(new ContainerControlledLifetimeManager());
 
             return container;
         }

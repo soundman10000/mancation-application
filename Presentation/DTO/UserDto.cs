@@ -4,21 +4,16 @@
 // file that was distributed with this source code.
 
 using System;
+using MongoDB.Bson;
 
 namespace Presentation.DTO
 {
     [Serializable]
     public class UserDto
     {
-        public UserDto(string firstName, string middleName, string lastName)
-        {
-            this.FirstName = firstName;
-            this.MiddleName = middleName;
-            this.LastName = lastName;
-        }
-
-        public string FirstName { get; }
-        public string MiddleName { get; }
-        public string LastName { get; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public ObjectId PersonId { get; set; }
+        public ObjectId AddressId { get; set; }
     }
 }

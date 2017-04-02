@@ -3,18 +3,17 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.Mancation.Domain
 
-using Domain;
 using MongoDB.Driver;
 
 namespace Mancation.Domain
 {
-    public interface IAddressDocumentStore : IDocumentStore<Address>
+    public interface IUserDocumentStore : IDocumentStore<User>
     {
     }
 
-    public class AddressDocumentStore : UserDocumentStorageProvider<Address>, IAddressDocumentStore
+    public class UserDocumentStore : UserDocumentStorageProvider<User>, IUserDocumentStore
     {
-        public AddressDocumentStore(IMongoClient mongoClient) 
+        public UserDocumentStore(IMongoClient mongoClient)
             : base(mongoClient)
         {
         }

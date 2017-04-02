@@ -64,6 +64,7 @@
     <Compile Include="Store\PersonDocumentStore.cs" />
     <Compile Include="Store\UserDocumentStorageProvider.cs" />
     <Compile Include="Store\IDocumentStore.cs" />
+    <Compile Include="Store\UserDocumentStore.cs" />
     <Compile Include="User\User.cs" />
   </ItemGroup>
   <ItemGroup />
