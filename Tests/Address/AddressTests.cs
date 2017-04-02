@@ -3,8 +3,10 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
+using MongoDB.Bson;
 using NUnit.Framework;
 using Presentation.DTO;
 using Presentation.Request;
@@ -46,7 +48,6 @@ namespace Tests.Address
                 County = RandomString()
             };
                 
-
             var request = new CreateAddress
             {
                 AddressDto = address1

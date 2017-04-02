@@ -1,16 +1,11 @@
-﻿// Mancation 
+﻿// Mancation fucker
 // (c) Smokey Inc.
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using Newtonsoft.Json;
+using Mancation.Domain;
 using Presentation.DTO;
 using Presentation.Request;
 
@@ -18,40 +13,26 @@ namespace Host.Request
 {
     public class AddressRequest : ServiceRequestBase
     {
+        private readonly IAddressDocumentStore _store;
+
+        public AddressRequest(IAddressDocumentStore store)
+        {
+            this._store = store;
+        }
+
         public async Task<AddressDto> Get(GetAddress request)
         {
-            var addressValueCollection = this.UserDatabase.GetCollection<BsonDocument>("addresses");
-
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", request.Id);
-            var doc = await addressValueCollection.Find(filter).FirstOrDefaultAsync();
-            var address = doc["address"];
-
-            return JsonConvert.DeserializeObject<AddressDto>(address.ToJson());
+            return await this._store.Get(request.Id);
         }
 
         public async Task<string> Post(CreateAddress createAddress)
         {
             var addressDto = createAddress.AddressDto;
 
-            var addressValueCollection = this.UserDatabase.GetCollection<BsonDocument>("addresses");
-
-            //need to validate
-            var address = new Address(
-                addressDto.Address1,
-                addressDto.Address2,
-                addressDto.Address3,
-                addressDto.City,
-                addressDto.State,
-                addressDto.PostalCode,
-                addressDto.County);
-
-            var document = new BsonDocument {new BsonElement("address", address)};
-
             try
             {
-                await addressValueCollection.InsertOneAsync(document);
-                var id = document["_id"].ToString();
-                return id;
+                var id = await this._store.Post(addressDto);
+                return id.ToString();
             }
             catch (Exception e)
             {

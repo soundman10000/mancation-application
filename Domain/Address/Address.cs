@@ -7,6 +7,7 @@ using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using Presentation.DTO;
 
 namespace Domain
 {
@@ -45,6 +46,18 @@ namespace Domain
             this.State = state;
             this.PostalCode = postalCode;
             this.County = county;
+        }
+
+        public Address(AddressDto dto)
+            : this(
+                dto.Address1,
+                dto.Address2,
+                dto.Address3,
+                dto.City,
+                dto.State,
+                dto.PostalCode,
+                dto.County)
+        {
         }
 
         #region Equality
@@ -92,12 +105,12 @@ namespace Domain
 
         public static bool operator !=(Address address1, Address address2)
         {
-            return address1 != null && !address1.Equals(address2);
+            return !Equals(address1, address2);
         }
 
         public static bool operator ==(Address address1, Address address2)
         {
-            return address1 != null && address1.Equals(address2);
+            return Equals(address1, address2);
         }
 
         #endregion
