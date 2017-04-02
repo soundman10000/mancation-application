@@ -11,7 +11,6 @@ namespace Mancation.Domain
     public interface IUserDocumentStorageProvider<T, TValue>
     {
         string CollectionName { get; }
-        string DataName { get; }
         Task<TValue> Get(ObjectId id);
         Task<ObjectId> Post(TValue value);
     }

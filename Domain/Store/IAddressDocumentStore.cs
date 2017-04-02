@@ -17,8 +17,6 @@ namespace Mancation.Domain
 
     public class AddressDocumentStore : UserDocumentStorageProvider<Address, AddressDto>, IAddressDocumentStore
     {
-        public string DataName => "address";
-
         public AddressDocumentStore(IMongoClient mongoClient) 
             : base(mongoClient)
         {
@@ -31,10 +29,10 @@ namespace Mancation.Domain
 
             if (document == null)
             {
-                throw new NotFoundException(this.DataName, id);
+                throw new NotFoundException(this.CollectionName, id);
             }
 
-            var bsonValue = document[DataName];
+            var bsonValue = document[this.CollectionName];
 
             return base.DeserializeBson(bsonValue);
         }
