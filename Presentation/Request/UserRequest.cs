@@ -24,6 +24,12 @@ namespace Presentation.Request
         public ObjectId Id { get; set; }
     }
 
+    [Route("/users", "DELETE")]
+    public class DeleteUser : IReturnVoid
+    {
+        public ObjectId Id { get; set; }
+    }
+
     [Route("/users", "POST")]
     public class CreateUser : IReturn<ObjectId>
     {

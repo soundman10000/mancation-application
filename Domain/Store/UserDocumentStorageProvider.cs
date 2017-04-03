@@ -55,6 +55,19 @@ namespace Mancation.Domain
             await this.DocumentCollection.InsertOneAsync(document);
             return new ObjectId(document["_id"].ToString());
         }
+
+        public async Task Delete(ObjectId id)
+        {
+            try
+            {
+                var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
+                await DocumentCollection.DeleteOneAsync(filter);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
     public static class Extensions

@@ -4,6 +4,7 @@
 // file that was distributed with this source code.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MongoDB.Bson;
@@ -32,12 +33,12 @@ namespace Tests.User
         }
 
         [Test]
-        public async Task TestCreateAndGetSucceed()
+        public async Task CreateGetAndDeleteSucceed()
         {
             var request = new CreateUser
             {
                 UserName = "soundman10000",
-                Password = "soundman10000",
+                Password = "testPassword",
                 Address = new AddressDto(),
                 Person = new PersonDto()
             };
@@ -53,6 +54,25 @@ namespace Tests.User
 
             Assert.IsTrue(user.UserName == request.UserName);
             Assert.IsTrue(user.Password == request.Password);
+
+            //Time to delete
+            var deleteRequest = new DeleteUser
+            {
+                Id = id
+            };
+
+            await this.Client.DeleteAsync(deleteRequest);
+        }
+
+        [Test]
+        public async Task FindUserSuccess()
+        {
+            var users = await this.Client.GetAsync(new FindUsers
+            {
+                Filter = new BsonDocument()
+            });
+
+            Assert.IsTrue(users.Any());
         }
     }
 }

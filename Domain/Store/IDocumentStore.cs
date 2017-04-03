@@ -15,5 +15,6 @@ namespace Mancation.Domain
         Task<T> Get(ObjectId id);
         Task<IEnumerable<ObjectId>> Find(BsonDocument filter);
         Task<ObjectId> Post(T value);
+        Task Delete(ObjectId id);
     }
 }

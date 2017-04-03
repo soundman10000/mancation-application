@@ -49,6 +49,11 @@ namespace Host.Request
             return items.ToList();
         }
 
+        public Task Delete(DeleteUser request)
+        {
+            return this._userStore.Delete(request.Id);
+        }
+
         public async Task<ObjectId> Post(CreateUser request)
         {
             var personEntity = new Person(request.Person);
