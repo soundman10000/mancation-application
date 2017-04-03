@@ -16,6 +16,8 @@ namespace Host
     /// </summary>
     public class HostContainer
     {
+        public const string USER_DATABASE = "users";
+
         public static IUnityContainer Create()
         {
             var container = new UnityContainer();

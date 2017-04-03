@@ -62,10 +62,11 @@
     <Compile Include="Person\Person.cs" />
     <Compile Include="Store\AddressDocumentStore.cs" />
     <Compile Include="Store\PersonDocumentStore.cs" />
-    <Compile Include="Store\UserDocumentStorageProvider.cs" />
+    <Compile Include="Store\DocumentStorageProvider.cs" />
     <Compile Include="Store\IDocumentStore.cs" />
     <Compile Include="Store\UserDocumentStore.cs" />
     <Compile Include="User\User.cs" />
+    <Compile Include="Values\Values.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

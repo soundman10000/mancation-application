@@ -6,16 +6,20 @@
 using Domain;
 using MongoDB.Driver;
 
+using static Mancation.Domain.Values.Values;
+
 namespace Mancation.Domain
 {
     public interface IPersonDocumentStore : IDocumentStore<Person>
     {
     }
 
-    public class PersonDocumentStore : UserDocumentStorageProvider<Person>, IPersonDocumentStore
+    public class PersonDocumentStore : DocumentStorageProvider<Person>, IPersonDocumentStore
     {
+
+
         public PersonDocumentStore(IMongoClient mongoClient) 
-            : base(mongoClient)
+            : base(UserDatabaseName, mongoClient)
         {
         }
     }

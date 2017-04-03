@@ -4,6 +4,7 @@
 // file that was distributed with this source code.Mancation.Domain
 
 using MongoDB.Driver;
+using static Mancation.Domain.Values.Values;
 
 namespace Mancation.Domain
 {
@@ -11,10 +12,10 @@ namespace Mancation.Domain
     {
     }
 
-    public class UserDocumentStore : UserDocumentStorageProvider<User>, IUserDocumentStore
+    public class UserDocumentStore : DocumentStorageProvider<User>, IUserDocumentStore
     {
         public UserDocumentStore(IMongoClient mongoClient)
-            : base(mongoClient)
+            : base(UserDatabaseName, mongoClient)
         {
         }
     }

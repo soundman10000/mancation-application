@@ -13,15 +13,14 @@ using MongoDB.Driver;
 
 namespace Mancation.Domain
 {
-    public abstract class UserDocumentStorageProvider<T>
+    public abstract class DocumentStorageProvider<T>
         where T : BsonValue
     {
-        private const string UserDatabase = "users";
         public string CollectionName => typeof(T).Name;
 
-        protected UserDocumentStorageProvider(IMongoClient mongoClient)
+        protected DocumentStorageProvider(string databaseName, IMongoClient mongoClient)
         {
-            this._database = mongoClient.GetDatabase(UserDatabase);
+            this._database = mongoClient.GetDatabase(databaseName);
             this.DocumentCollection = this._database.GetCollection<BsonDocument>(typeof(T).Name);
         }
 
@@ -72,7 +71,7 @@ namespace Mancation.Domain
 
     public static class Extensions
     {
-        public static BsonDocument ToBson<T>(this T value, UserDocumentStorageProvider<T> input) 
+        public static BsonDocument ToBson<T>(this T value, DocumentStorageProvider<T> input) 
             where T : BsonValue
         {
             return new BsonDocument {new BsonElement(input.CollectionName, value)};

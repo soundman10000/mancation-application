@@ -5,6 +5,7 @@
 
 using Domain;
 using MongoDB.Driver;
+using static Mancation.Domain.Values.Values;
 
 namespace Mancation.Domain
 {
@@ -12,10 +13,10 @@ namespace Mancation.Domain
     {
     }
 
-    public class AddressDocumentStore : UserDocumentStorageProvider<Address>, IAddressDocumentStore
+    public class AddressDocumentStore : DocumentStorageProvider<Address>, IAddressDocumentStore
     {
-        public AddressDocumentStore(IMongoClient mongoClient) 
-            : base(mongoClient)
+        public AddressDocumentStore(IMongoClient mongoClient)
+            : base(UserDatabaseName, mongoClient)
         {
         }
     }
