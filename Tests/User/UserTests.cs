@@ -3,13 +3,10 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MongoDB.Bson;
 using NUnit.Framework;
-using Presentation;
 using Presentation.DTO;
 using Presentation.Request;
 using static Tests.Utilities.StringHelpers;

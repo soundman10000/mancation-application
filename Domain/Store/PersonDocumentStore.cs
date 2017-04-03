@@ -16,8 +16,6 @@ namespace Mancation.Domain
 
     public class PersonDocumentStore : DocumentStorageProvider<Person>, IPersonDocumentStore
     {
-
-
         public PersonDocumentStore(IMongoClient mongoClient) 
             : base(UserDatabaseName, mongoClient)
         {

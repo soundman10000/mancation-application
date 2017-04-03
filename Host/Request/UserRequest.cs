@@ -12,10 +12,11 @@ using Mancation.Domain;
 using MongoDB.Bson;
 using Presentation.DTO;
 using Presentation.Request;
+using ServiceStack;
 
 namespace Host.Request
 {
-    public class UserRequest : ServiceRequestBase
+    public class UserRequest : Service
     {
         private readonly IPersonDocumentStore _personStore;
         private readonly IAddressDocumentStore _addressStore;

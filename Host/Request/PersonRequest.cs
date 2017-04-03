@@ -9,10 +9,11 @@ using Domain;
 using Mancation.Domain;
 using Presentation.DTO;
 using Presentation.Request;
+using ServiceStack;
 
 namespace Host.Request
 {
-    public class PersonRequest : ServiceRequestBase
+    public class PersonRequest : Service
     {
         private readonly IPersonDocumentStore _store;
 
